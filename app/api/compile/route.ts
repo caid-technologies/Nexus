@@ -9,6 +9,15 @@ import { devLog } from '@/lib/logger'
 
 const execFileAsync = promisify(execFile)
 
+function buildMinimalEnv(): NodeJS.ProcessEnv {
+  return {
+    PATH: process.env.PATH ?? '/usr/bin:/bin',
+    HOME: process.env.HOME ?? '/tmp',
+    LANG: 'en_US.UTF-8',
+    PYTHONDONTWRITEBYTECODE: '1',
+  } as unknown as NodeJS.ProcessEnv
+}
+
 // Find python3 binary
 let resolvedPython: string | null | undefined = undefined
 
@@ -212,7 +221,7 @@ print(f"Exported STL to {_stl_path}")
       {
         timeout: 60_000,  // Build123d can be slower than OpenSCAD for complex shapes
         maxBuffer: 10 * 1024 * 1024,
-        env: { ...process.env, PYTHONDONTWRITEBYTECODE: '1' },
+        env: buildMinimalEnv(),
       }
     )
 
@@ -224,9 +233,11 @@ print(f"Exported STL to {_stl_path}")
       const stlStat = await stat(stlPath)
       devLog(`[compile] STL file size: ${stlStat.size} bytes`)
     } catch {
+      const requestId = randomUUID()
+      console.error(`[compile] ${requestId} no STL produced. stderr:`, stderr)
       return NextResponse.json({
-        error: 'Build123d produced no STL output. Check code for errors.',
-        stderr: stderr || undefined,
+        error: 'Compilation failed',
+        requestId,
       }, { status: 422 })
     }
 
@@ -263,11 +274,11 @@ print(f"Exported STL to {_stl_path}")
     })
 
   } catch (err: any) {
-    console.error('[compile] Build123d execution failed:')
-    console.error('[compile] stderr:', err.stderr)
-    console.error('[compile] message:', err.message)
+    const requestId = randomUUID()
+    console.error(`[compile] ${requestId} execution failed. stderr:`, err.stderr)
+    console.error(`[compile] ${requestId} message:`, err.message)
 
-    const errorMsg = err.stderr || err.message || 'Compilation failed'
+    const errorMsg = err.stderr || err.message || ''
 
     // Auto-heal: fillet/chamfer often fails on invalid topology; strip those calls and retry once
     // so users still get an STL when the rest of the model is valid.
@@ -410,7 +421,7 @@ print(f"Exported STL to {_stl_path} (auto-healed)")
           {
             timeout: 60_000,
             maxBuffer: 10 * 1024 * 1024,
-            env: { ...process.env, PYTHONDONTWRITEBYTECODE: '1' },
+            env: buildMinimalEnv(),
           }
         )
 
@@ -420,8 +431,10 @@ print(f"Exported STL to {_stl_path} (auto-healed)")
         try {
           await stat(stlPath)
         } catch {
+          const healRequestId = randomUUID()
+          console.error(`[compile] ${healRequestId} auto-heal also produced no STL. stderr:`, hStderr)
           await unlink(healedPyPath).catch(() => {})
-          return NextResponse.json({ error: 'Auto-heal also failed: ' + (hStderr || 'no STL produced') }, { status: 422 })
+          return NextResponse.json({ error: 'Compilation failed', requestId: healRequestId }, { status: 422 })
         }
 
         const stlBuffer = await readFile(stlPath)
@@ -457,12 +470,13 @@ print(f"Exported STL to {_stl_path} (auto-healed)")
           headers,
         })
       } catch (healErr: any) {
-        console.error('[compile] Auto-heal retry also failed:', healErr.message)
-        return NextResponse.json({ error: errorMsg }, { status: 422 })
+        const healRequestId = randomUUID()
+        console.error(`[compile] ${healRequestId} auto-heal retry failed:`, healErr.message)
+        return NextResponse.json({ error: 'Compilation failed', requestId: healRequestId }, { status: 422 })
       }
     }
 
-    return NextResponse.json({ error: errorMsg }, { status: 422 })
+    return NextResponse.json({ error: 'Compilation failed', requestId }, { status: 422 })
   } finally {
     await unlink(pyPath).catch(() => {})
     await unlink(stlPath).catch(() => {})
