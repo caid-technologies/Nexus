@@ -1,4 +1,4 @@
-# Studio API Reference
+# Nexus API Reference
 
 ## POST /api/generate
 

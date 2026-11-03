@@ -1,6 +1,6 @@
 # Technical Challenges & Solutions
 
-Building Studio in 48 hours at Tech@NYU Startup Week 2026 Buildathon required solving a chain of hard technical problems. Here's what we hit and how we solved each one.
+Building Nexus in 48 hours at Tech@NYU Startup Week 2026 Buildathon required solving a chain of hard technical problems. Here's what we hit and how we solved each one.
 
 ---
 

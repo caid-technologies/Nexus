@@ -1,4 +1,4 @@
-# Studio — Activate AI APIs (5-Minute Setup)
+# Nexus — Activate AI APIs (5-Minute Setup)
 
 ## TL;DR: Make it Work in 5 Steps
 
@@ -157,7 +157,7 @@ Run this shell script to test all APIs:
 
 ```bash
 #!/bin/bash
-echo "Testing Studio AI APIs..."
+echo "Testing Nexus AI APIs..."
 
 # Test parse-intent
 echo "1. Testing /api/parse-intent..."

@@ -1,8 +1,8 @@
-# Studio — Technical Architecture
+# Nexus — Technical Architecture
 
 ## System Overview
 
-Studio uses a 4-agent pipeline architecture where each agent has a specialized role, communicating via Server-Sent Events (SSE) for real-time frontend updates.
+Nexus uses a 4-agent pipeline architecture where each agent has a specialized role, communicating via Server-Sent Events (SSE) for real-time frontend updates.
 
 ## Agent Details
 

@@ -76,8 +76,8 @@ export async function POST(req: NextRequest) {
   }
 
   const id = randomUUID()
-  const pyPath = join(tmpdir(), `studio-${id}.py`)
-  const stlPath = join(tmpdir(), `studio-${id}.stl`)
+  const pyPath = join(tmpdir(), `nexus-${id}.py`)
+  const stlPath = join(tmpdir(), `nexus-${id}.stl`)
 
   try {
     // Wrap the user code to ensure STL export happens
@@ -401,7 +401,7 @@ print(f"METRICS_JSON:{_json.dumps(_metrics)}")
 print(f"Exported STL to {_stl_path} (auto-healed)")
 `
 
-        const healedPyPath = join(tmpdir(), 'studio-healed-' + id + '.py')
+        const healedPyPath = join(tmpdir(), 'nexus-healed-' + id + '.py')
         await writeFile(healedPyPath, healedWrapped, 'utf-8')
 
         const { stdout: hStdout, stderr: hStderr } = await execFileAsync(

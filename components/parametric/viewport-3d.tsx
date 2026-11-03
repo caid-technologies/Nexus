@@ -221,7 +221,7 @@ export default function Viewport3D() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = 'studio-design.stl'
+    a.download = 'nexus-design.stl'
     a.click()
     URL.revokeObjectURL(url)
   }

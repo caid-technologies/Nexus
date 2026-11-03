@@ -111,7 +111,7 @@ export async function openRouterChat(
       Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': process.env.APP_URL || 'http://localhost:3000',
-      'X-Title': process.env.APP_NAME || 'Studio',
+      'X-Title': process.env.APP_NAME || 'Nexus',
     },
     body: JSON.stringify(body),
   })

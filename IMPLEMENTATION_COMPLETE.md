@@ -1,8 +1,8 @@
-# Studio — Full AI Integration Complete ✅
+# Nexus — Full AI Integration Complete ✅
 
 ## Implementation Summary
 
-This document tracks the complete integration of **NVIDIA NIM**, **OpenRouter**, **Databricks**, and **NVIDIA Vision** into Studio's pipeline.
+This document tracks the complete integration of **NVIDIA NIM**, **OpenRouter**, **Databricks**, and **NVIDIA Vision** into Nexus's pipeline.
 
 ---
 
@@ -302,7 +302,7 @@ Before demo:
 
 1. **Clone & setup:**
    ```bash
-   cd studio
+   cd Nexus
    cp .env.local.example .env.local
    # Add your API keys to .env.local
    npm install
@@ -361,7 +361,7 @@ All API routes log to console with `[route-name]` prefix:
 
 ## Conclusion
 
-Studio now features a **production-grade AI pipeline** with:
+Nexus now features a **production-grade AI pipeline** with:
 
 ✅ Deterministic structured output (NIM + guided_json)
 ✅ Multi-provider LLM routing (OpenRouter smart fallback)

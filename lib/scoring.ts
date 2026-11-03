@@ -1,7 +1,7 @@
 import type { DesignTree, ScoreResult } from '@/lib/types'
 
 // ═══════════════════════════════════════════════════════════════════
-// Studio Evaluation Agent v3.0
+// Nexus Evaluation Agent v3.0
 // Two-stage scoring: Quality (spec-agnostic) × SpecMatch (spec-conditioned)
 // Overall = QualityGate × (0.7 × SpecMatch + 0.3 × Quality)
 // ═══════════════════════════════════════════════════════════════════
