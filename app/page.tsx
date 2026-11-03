@@ -48,7 +48,7 @@ export default function Home() {
         <div className="flex items-center gap-2.5">
           <Boxes className="w-5 h-5 text-accent" />
           <span className="font-semibold text-sm tracking-tight">
-            Studio
+            Nexus
           </span>
         </div>
         <div className="flex items-center gap-3">

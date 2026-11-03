@@ -1,4 +1,4 @@
-# Studio
+# Nexus
 
 
 [Quick Start](#getting-started) · [Architecture](#architecture) · [API Reference](docs/api-reference.md) · [Challenges](CHALLENGES.md) · [Contribution](CONTRIBUTION.md)
@@ -131,7 +131,7 @@ flowchart LR
 ## Project Structure
 
 ```
-Studio/
+Nexus/
 ├── app/
 │   ├── page.tsx                    # Main layout — viewport, graph, sidebar
 │   ├── api/
@@ -177,8 +177,8 @@ Studio/
 
 ```bash
 # 1. Clone
-git clone https://github.com/roshaninfordham/paragraphai.git studio
-cd studio
+git clone https://github.com/caid-technologies/Nexus.git Nexus
+cd Nexus
 
 #2. Setup up python virtual environment
 python -m venv .venv

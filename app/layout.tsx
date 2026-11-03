@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Studio - AI Parametric Design',
+  title: 'Nexus - AI Parametric Design',
   description: 'Generate editable 3D parametric designs from natural language',
   icons: {
     icon: [

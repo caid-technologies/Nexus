@@ -66,7 +66,7 @@ export async function POST(request: Request) {
             },
             {
               role: 'user',
-              content: `You are the Intent Parser agent for Studio, an AI-native parametric 3D design system. You are Step 1 of a 4-agent pipeline.
+              content: `You are the Intent Parser agent for Nexus, an AI-native parametric 3D design system. You are Step 1 of a 4-agent pipeline.
 
 PIPELINE:
 1. YOU (Nemotron) → Extract structured design intent

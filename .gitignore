@@ -44,7 +44,7 @@ Thumbs.db
 __pycache__/
 *.pyc
 *.stl
-studio-*.py
+nexus-*.py
 
 # env variants
 .env.*.local

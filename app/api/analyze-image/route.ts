@@ -359,7 +359,7 @@ async function callVLM(b64: string, mime: string, prompt: string): Promise<VLMRe
           'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
           'HTTP-Referer': process.env.APP_URL || 'http://localhost:3000',
-          'X-Title': process.env.APP_NAME || 'Studio',
+          'X-Title': process.env.APP_NAME || 'Nexus',
         },
         body: JSON.stringify({
           model: 'anthropic/claude-sonnet-4',

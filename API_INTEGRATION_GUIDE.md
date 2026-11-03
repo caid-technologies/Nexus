@@ -1,6 +1,6 @@
-# Studio — AI Integration & API Guide
+# Nexus — AI Integration & API Guide
 
-**Studio** now features a **full-stack AI pipeline** integrating NVIDIA NIM (Nemotron), OpenRouter (Claude), Databricks (vector search), and NVIDIA vision models. This guide covers all API endpoints, their capabilities, and how to use them.
+**Nexus** now features a **full-stack AI pipeline** integrating NVIDIA NIM (Nemotron), OpenRouter (Claude), Databricks (vector search), and NVIDIA vision models. This guide covers all API endpoints, their capabilities, and how to use them.
 
 ---
 

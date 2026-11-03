@@ -1,4 +1,4 @@
-# 🎯 Studio — Complete AI Integration Summary
+# 🎯 Nexus — Complete AI Integration Summary
 
 ## Status: ✅ PRODUCTION READY FOR HACKATHON
 
@@ -359,7 +359,7 @@ See `QUICK_START.md` for full troubleshooting.
 
 ## The Bottom Line
 
-Studio is now a **full-stack AI-native parametric design studio** with:
+Nexus is now a **full-stack AI-native parametric design studio** with:
 
 ✅ **Deterministic structured output** (NIM + guided_json — no JSON parsing errors)
 ✅ **Multi-model AI orchestration** (OpenRouter smart routing + fallback)
