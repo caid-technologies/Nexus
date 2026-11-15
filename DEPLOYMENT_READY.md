@@ -2,7 +2,7 @@
 
 ## Status: ✅ PRODUCTION READY FOR HACKATHON
 
-All files compiled, tested, zero TypeScript errors. Ready to demo.
+This document records an earlier implementation milestone. For current setup and verification, use the [README](README.md#getting-started).
 
 ---
 
@@ -126,7 +126,7 @@ All files compiled, tested, zero TypeScript errors. Ready to demo.
      ┌─────────  ┌──────────  ┌────────────────
      │ Compile  │ Node Edit  │ Sketch Analysis
      │          │            │
-     │ OpenSCAD │ /api/edit- │ /api/sketch-
+     │ Build123d│ /api/edit- │ /api/sketch-
      │          │   node     │   analysis
      │ Binary   │ Claude     │ NIM 12B VL
      │ STL      │ + Params   │ Vision
@@ -359,7 +359,7 @@ See `QUICK_START.md` for full troubleshooting.
 
 ## The Bottom Line
 
-Nexus is now a **full-stack AI-native parametric design studio** with:
+Nexus is an **AI-native parametric design workspace** with:
 
 ✅ **Deterministic structured output** (NIM + guided_json — no JSON parsing errors)
 ✅ **Multi-model AI orchestration** (OpenRouter smart routing + fallback)

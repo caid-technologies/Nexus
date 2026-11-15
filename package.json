@@ -6,6 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
+    "typecheck": "next typegen && tsc --noEmit",
+    "smoke": "node scripts/smoke.mjs",
     "start": "next start",
     "copy-wasm": "cp -r node_modules/openscad-wasm public/openscad-wasm"
   },

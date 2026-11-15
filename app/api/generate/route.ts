@@ -1,4 +1,5 @@
-import { nemotronClient, MODELS } from '@/lib/ai-clients'
+import { APP_NAME } from '@/lib/branding'
+import { getNemotronClient, MODELS } from '@/lib/ai-clients'
 import { resilientChat } from '@/lib/llm-clients'
 import { scoreDesign } from '@/lib/scoring'
 import type { DesignTree } from '@/lib/types'
@@ -53,20 +54,20 @@ export async function POST(request: Request) {
         })
 
         // Use streaming to capture reasoning_content
-        const nemotronStream = await nemotronClient.chat.completions.create({
+        const nemotronOptions = {
           model: MODELS.nemotron,
           temperature: 0.6,
           top_p: 0.95,
           max_tokens: 2048,
-          stream: true,
+          stream: true as const,
           messages: [
             {
-              role: 'system',
+              role: 'system' as const,
               content: `/no_think`,
             },
             {
-              role: 'user',
-              content: `You are the Intent Parser agent for Nexus, an AI-native parametric 3D design system. You are Step 1 of a 4-agent pipeline.
+              role: 'user' as const,
+              content: `You are the Intent Parser agent for ${APP_NAME}, an AI-native parametric 3D design system. You are Step 1 of a 4-agent pipeline.
 
 PIPELINE:
 1. YOU (Nemotron) → Extract structured design intent
@@ -141,23 +142,20 @@ PROMPT TO PARSE:
               required: ["entities", "parameters", "designType"]
             }
           }
-        } as any)
+        }
+        const nemotronStream = await getNemotronClient().chat.completions.create(nemotronOptions)
 
         // Collect streaming response
         let intentText = ''
         let reasoningText = ''
         let chunkCount = 0
 
-        for await (const chunk of nemotronStream as AsyncIterable<{
-          choices: Array<{
-            delta: {
-              content?: string
-              reasoning_content?: string
-            }
-          }>
-        }>) {
-          const reasoning = chunk.choices[0]?.delta?.reasoning_content
-          const content = chunk.choices[0]?.delta?.content
+        for await (const chunk of nemotronStream) {
+          const delta = chunk.choices[0]?.delta as
+            | { content?: string | null; reasoning_content?: string }
+            | undefined
+          const reasoning = delta?.reasoning_content
+          const content = delta?.content
 
           if (reasoning) {
             reasoningText += reasoning

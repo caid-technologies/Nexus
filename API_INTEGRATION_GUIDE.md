@@ -6,29 +6,14 @@
 
 ## Architecture Overview
 
-```
-User Intent (Natural Language)
-    ↓
-[POST /api/parse-intent] ← NVIDIA NIM (guided_json) — structured JSON
-    ↓
-Design Tree (parametric model)
-    ↓
-[POST /api/design-search] ← Databricks Vector Search (optional design templates)
-    ↓ (context-augmented)
-[POST /api/generate-agentic] ← Claude Sonnet 4 (with thinking) + design RAG
-    ↓
-OpenSCAD Code
-    ↓
-[POST /api/compile] ← Local OpenSCAD binary
-    ↓
-STL Geometry (binary)
-    ↓
-[Babylon.js viewport] ← 3D rendering (fixed viewport race condition)
-```
+The main Nexus workspace sends text to `POST /api/generate` and receives the
+intent, design tree, and Build123d Python through server-sent events. The client
+submits that Python to `POST /api/compile` and displays the returned STL in Babylon.js.
+Image input is first processed by `POST /api/analyze-image`.
 
-**Optional side channels:**
-- [POST /api/sketch-analysis] ← NVIDIA Nemotron 12B VL (sketch → parameters)
-- [POST /api/edit-node] ← Claude Sonnet 4 (natural language node editing)
+The standalone `POST /api/generate-agentic` route described below produces
+OpenSCAD and is not a source of Python for `POST /api/compile`. The Databricks,
+sketch-analysis, and node-editing routes have their own input and output contracts.
 
 ---
 
