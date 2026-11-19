@@ -1,3 +1,4 @@
+import { APP_NAME } from '@/lib/branding'
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import sharp from 'sharp'
@@ -359,7 +360,7 @@ async function callVLM(b64: string, mime: string, prompt: string): Promise<VLMRe
           'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
           'HTTP-Referer': process.env.APP_URL || 'http://localhost:3000',
-          'X-Title': process.env.APP_NAME || 'Nexus',
+          'X-Title': process.env.APP_NAME || APP_NAME,
         },
         body: JSON.stringify({
           model: 'anthropic/claude-sonnet-4',

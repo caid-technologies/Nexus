@@ -1,3 +1,4 @@
+import { APP_NAME } from '@/lib/branding'
 /**
  * Unified LLM client supporting NVIDIA NIM, OpenRouter, and Databricks
  * Primary: NVIDIA NIM for Nemotron (structured output via guided_json)
@@ -111,7 +112,7 @@ export async function openRouterChat(
       Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': process.env.APP_URL || 'http://localhost:3000',
-      'X-Title': process.env.APP_NAME || 'Nexus',
+      'X-Title': process.env.APP_NAME || APP_NAME,
     },
     body: JSON.stringify(body),
   })

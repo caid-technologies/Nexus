@@ -1,5 +1,7 @@
 'use client'
 
+import { APP_SLUG } from '@/lib/branding'
+
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { RotateCcw, Maximize, Grid3x3, Eye, EyeOff, Download } from 'lucide-react'
 import { useStore } from '@/lib/store'
@@ -221,7 +223,7 @@ export default function Viewport3D() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = 'nexus-design.stl'
+    a.download = `${APP_SLUG}-design.stl`
     a.click()
     URL.revokeObjectURL(url)
   }

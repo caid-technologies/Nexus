@@ -63,9 +63,12 @@ export async function POST(req: NextRequest) {
   devLog(`[compile] Received ${code.length} chars of Build123d code`)
   devLog(`[compile] First 300 chars:\n${code.substring(0, 300)}`)
 
-  const python = await findPython()
-  if (!python) {
-    return NextResponse.json({ error: 'Python not found. Install Python 3.8+.' }, { status: 501 })
+  let python: string
+  try {
+    python = await findPython()
+  } catch (err) {
+    console.error('[compile] Python binary unavailable:', err)
+    return NextResponse.json({ error: 'Set PYTHON_PATH to a Python executable with Build123d installed.' }, { status: 501 })
   }
 
   const hasBuild123d = await verifyBuild123d(python)
@@ -154,19 +157,22 @@ try:
   # Face type distribution (PLANE, CYLINDER, CONE, SPHERE, TORUS, BSPLINE, etc.)
   _face_types = {}
   for _f in _faces:
-    _ft = str(_f.geom_type())
+    _geom_type = _f.geom_type
+    _ft = str(_geom_type() if callable(_geom_type) else _geom_type)
     _face_types[_ft] = _face_types.get(_ft, 0) + 1
   _metrics["face_types"] = _face_types
 
   # Edge type distribution
   _edge_types = {}
   for _e in _edges:
-    _et = str(_e.geom_type())
+    _geom_type = _e.geom_type
+    _et = str(_geom_type() if callable(_geom_type) else _geom_type)
     _edge_types[_et] = _edge_types.get(_et, 0) + 1
   _metrics["edge_types"] = _edge_types
 
   # Validity check (OpenCascade BRepCheck_Analyzer)
-  _metrics["is_valid"] = bool(_shape.is_valid())
+  _validity = _shape.is_valid
+  _metrics["is_valid"] = bool(_validity() if callable(_validity) else _validity)
 
   # Aspect ratios
   if _metrics["min_dimension"] > 0:
@@ -353,19 +359,22 @@ try:
   # Face type distribution (PLANE, CYLINDER, CONE, SPHERE, TORUS, BSPLINE, etc.)
   _face_types = {}
   for _f in _faces:
-    _ft = str(_f.geom_type())
+    _geom_type = _f.geom_type
+    _ft = str(_geom_type() if callable(_geom_type) else _geom_type)
     _face_types[_ft] = _face_types.get(_ft, 0) + 1
   _metrics["face_types"] = _face_types
 
   # Edge type distribution
   _edge_types = {}
   for _e in _edges:
-    _et = str(_e.geom_type())
+    _geom_type = _e.geom_type
+    _et = str(_geom_type() if callable(_geom_type) else _geom_type)
     _edge_types[_et] = _edge_types.get(_et, 0) + 1
   _metrics["edge_types"] = _edge_types
 
   # Validity check (OpenCascade BRepCheck_Analyzer)
-  _metrics["is_valid"] = bool(_shape.is_valid())
+  _validity = _shape.is_valid
+  _metrics["is_valid"] = bool(_validity() if callable(_validity) else _validity)
 
   # Aspect ratios
   if _metrics["min_dimension"] > 0:

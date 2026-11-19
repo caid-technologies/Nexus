@@ -1,19 +1,24 @@
 import React from "react"
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import localFont from 'next/font/local'
+import { APP_TITLE } from '@/lib/branding'
 import './globals.css'
 
-const geistSans = Geist({
-  subsets: ['latin'],
+const geistSans = localFont({
+  src: './fonts/Geist.woff2',
+  weight: '100 900',
+  display: 'swap',
   variable: '--font-geist-sans',
 })
-const geistMono = Geist_Mono({
-  subsets: ['latin'],
+const geistMono = localFont({
+  src: './fonts/GeistMono.woff2',
+  weight: '100 900',
+  display: 'swap',
   variable: '--font-geist-mono',
 })
 
 export const metadata: Metadata = {
-  title: 'Nexus - AI Parametric Design',
+  title: APP_TITLE,
   description: 'Generate editable 3D parametric designs from natural language',
   icons: {
     icon: [

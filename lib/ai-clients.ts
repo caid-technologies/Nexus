@@ -1,19 +1,16 @@
-import Anthropic from '@anthropic-ai/sdk'
 import OpenAI from 'openai'
 
-// Claude — Logic Tree Builder + Code Generator
-export const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY!,
-})
+// Create the provider client on demand so a build or local startup does not
+// require credentials for a route that has not been called.
+export function getNemotronClient() {
+  const apiKey = process.env.NVIDIA_API_KEY
+  if (!apiKey) throw new Error('NVIDIA_API_KEY is not configured')
+  return new OpenAI({
+    baseURL: 'https://integrate.api.nvidia.com/v1',
+    apiKey,
+  })
+}
 
-// Nemotron via NVIDIA API — Intent Parser Agent
-// OpenAI SDK works with NVIDIA by changing the baseURL
-export const nemotronClient = new OpenAI({
-  baseURL: 'https://integrate.api.nvidia.com/v1',
-  apiKey: process.env.NVIDIA_API_KEY!,
-})
-
-// Model constants — single source of truth
 export const MODELS = {
   nemotron: 'nvidia/nvidia-nemotron-nano-9b-v2',
   claude: 'claude-sonnet-4-5-20250929',

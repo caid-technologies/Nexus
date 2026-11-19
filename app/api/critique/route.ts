@@ -1,4 +1,4 @@
-import { nemotronClient, MODELS } from '@/lib/ai-clients'
+import { getNemotronClient, MODELS } from '@/lib/ai-clients'
 import type { ScoreResult } from '@/lib/types'
 
 export async function POST(request: Request) {
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       prompt: string
     } = body
 
-    const res = await nemotronClient.chat.completions.create({
+    const res = await getNemotronClient().chat.completions.create({
       model: MODELS.nemotron,
       temperature: 0.3,
       max_tokens: 256,
